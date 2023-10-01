@@ -1,4 +1,4 @@
-# Gadget Grammer
+# Gadget Grammar
 
 ## Tech Stack
 
