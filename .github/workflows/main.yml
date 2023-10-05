@@ -1,15 +1,21 @@
-name: Build Vue
+name: Auto Deploy
 on: [push]
 jobs:
-  build_vue:
+  build-and-test:
     runs-on: ubuntu-latest
-    name: Build Vue
     steps:
-    - uses: actions/checkout@v2
-    - id: Build-Vue
-      uses: xRealNeon/VuePagesAction@1.0.1
-      working-directory: ./Gadget-Grammar
-      with:
-        username: 'proesslet'
-        reponame: 'gadgetgrammar'
-        token: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
+      - uses: actions/checkout@v2 # setup the repository in the runner
+      - name: Setup Node.js # setup Node.js in the runner
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16'
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+      - run: npm ci # install dependencies
+        working-directory: ./Gadget-Grammar
+      - run: npm run build --if-present # build the project
+        working-directory: ./Gadget-Grammar
+      
