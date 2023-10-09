@@ -1,6 +1,5 @@
 <template>
   <h1>{{ msg }}</h1>
-  <button @click="btnclick"></button>
   <Grid />
 </template>
 
@@ -17,10 +16,6 @@ export default {
       msg: "Welcome to Gadget Grammar!",
     };
   },
-  methods: {
-    btnclick() {
-      alert("Button Clicked");
-    },
-  },
+  methods: {},
 };
 </script>

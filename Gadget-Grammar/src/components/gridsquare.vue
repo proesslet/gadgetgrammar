@@ -1,5 +1,5 @@
 <template>
-  <input type="text" v-model="letter" placeholder="" />
+  <div class="tile"></div>
 </template>
 
 <script>
@@ -29,3 +29,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.tile {
+  width: 100%;
+  font-size: 2rem;
+  line-height: 2rem;
+  font-weight: bold;
+  vertical-align: middle;
+  text-transform: uppercase;
+  user-select: none;
+  position: relative;
+  border: 1px solid black;
+}
+</style>

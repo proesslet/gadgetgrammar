@@ -1,18 +1,18 @@
 <template>
-  <div class="d-flex flex-column">
-    <div class="d-flex flex-row">
+  <div id="board">
+    <div class="row">
       <GridSquare v-for="n in 5" :correct="right" />
     </div>
-    <div class="d-flex flex-row">
+    <div class="row">
       <GridSquare v-for="n in 5" :correct="right" />
     </div>
-    <div class="d-flex flex-row">
+    <div class="row">
       <GridSquare v-for="n in 5" :correct="right" />
     </div>
-    <div class="d-flex flex-row">
+    <div class="row">
       <GridSquare v-for="n in 5" :correct="right" />
     </div>
-    <div class="d-flex flex-row">
+    <div class="row">
       <GridSquare v-for="n in 5" :correct="right" />
     </div>
   </div>
@@ -33,3 +33,22 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#board {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  grid-gap: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+  --height: min(420px, calc(var(--vh, 100vh) - 310px));
+  height: var(--height);
+  width: min(350px, calc(var(--height) / 6 * 5));
+  margin: 0px auto;
+}
+.row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 5px;
+}
+</style>
