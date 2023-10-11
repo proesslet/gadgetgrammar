@@ -1,6 +1,6 @@
 <template>
-  <div class="tile" @keydown="handleKeyDown" tabIndex = "0">
-  {{ letter }}
+  <div class="tile" ref="gridSquare" @keydown="handleKeyDown" tabindex="0">
+    {{ letter }}
   </div>
 </template>
 
@@ -20,31 +20,49 @@ export default {
   },
   methods: {
     handleKeyDown(event) {
-      // Check if the pressed key is a letter (A-Z)
       const keyCode = event.keyCode || event.which;
       if ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122)) {
-        // Update the letter property with the pressed letter
         this.letter = String.fromCharCode(keyCode).toUpperCase();
         this.$emit("inputComplete"); // Emit custom event to signal input completion
+        this.focusNextSquare();
       } else if (keyCode === 8) {
-        // If Backspace key is pressed, delete the letter
         this.letter = "";
-        event.preventDefault(); // Prevent the default backspace behavior
+        event.preventDefault();
+        this.focusPreviousSquare();
+      } else if (keyCode === 13) { // Check for Enter key
+        event.preventDefault();
+        this.focusNextRow();
       }
     },
-    mounted() {
-      // Automatically focus on this GridSquare when it's mounted
-      this.$refs.gridSquare.focus();
+    focusNextSquare() {
+      // Focus on the next GridSquare to the right
+      const gridSquare = this.$refs.gridSquare;
+      if (gridSquare.nextSibling) {
+        gridSquare.nextSibling.focus();
+      }
     },
-    check() {
-      if (correct == "right") {
-        alert("Right");
-        input.style.border = "10px solid green";
+    focusPreviousSquare() {
+      // Focus on the previous GridSquare to the left
+      const gridSquare = this.$refs.gridSquare;
+      if (gridSquare.previousSibling) {
+        gridSquare.previousSibling.focus();
+      }
+    },
+    focusNextRow() {
+      // Focus on the first GridSquare in the next row
+      const gridSquare = this.$refs.gridSquare;
+      const row = gridSquare.closest(".row");
+      const nextRow = row.nextElementSibling;
+      if (nextRow) {
+        const firstSquare = nextRow.querySelector(".tile");
+        if (firstSquare) {
+          firstSquare.focus();
+        }
       }
     },
   },
-  onload() {
-    this.check();
+  mounted() {
+    this.$refs.gridSquare.focus();
   },
 };
 </script>
