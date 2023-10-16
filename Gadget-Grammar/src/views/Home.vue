@@ -1,5 +1,5 @@
 <template>
-  <h1>{{ msg }}</h1>
+  <h1 class="centered-text">{{ msg }}</h1>
   <Grid />
 </template>
 
@@ -19,3 +19,9 @@ export default {
   methods: {},
 };
 </script>
+
+<style>
+.centered-text {
+  text-align: center;
+}
+</style>
