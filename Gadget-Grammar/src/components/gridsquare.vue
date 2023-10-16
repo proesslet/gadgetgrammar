@@ -37,8 +37,8 @@ export default {
     focusNextSquare() {
       // Focus on the next GridSquare to the right
       const gridSquare = this.$refs.gridSquare;
-      if (gridSquare.nextSibling) {
-        gridSquare.nextSibling.focus();
+      if (gridSquare.nextElementSibling) {
+        gridSquare.nextElementSibling.focus();
       }
     },
     focusPreviousSquare() {
@@ -62,7 +62,9 @@ export default {
     },
   },
   mounted() {
-    this.$refs.gridSquare.focus();
+    // Focus the first GridSquare in the first row
+    const firstSquare = document.querySelector(".row:first-child .tile");
+    firstSquare.focus();
   },
 };
 </script>
