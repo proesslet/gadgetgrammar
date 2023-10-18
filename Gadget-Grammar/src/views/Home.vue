@@ -11,10 +11,17 @@
       >
         <router-link to="/game" class="btn btn-primary m-2">Play</router-link>
         <button type="button" class="btn btn-primary m-2">Log in</button>
-        <button type="button" class="btn btn-primary m-2">How to play</button>
-        <button data-toggle="modal" data-target="#myModal" class="How to play"></button>
+        <button
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#instructionsModal"
+          class="btn btn-primary m-2"
+        >
+          How to play
+        </button>
       </div>
     </div>
+    <Modal />
   </div>
 </template>
 
@@ -23,13 +30,13 @@ import Modal from "../components/gameinstructions.vue";
 export default {
   name: "Home",
   components: {
-    Modal
+    Modal,
   },
   data() {
     return {
       right: "right",
+      showModal: false,
     };
   },
 };
 </script>
-
