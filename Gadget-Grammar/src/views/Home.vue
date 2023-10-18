@@ -9,7 +9,7 @@
       <div
         class="col-3 d-flex flex-column m-auto h-100 justify-content-space-between"
       >
-        <button type="button" class="btn btn-primary m-2">Play</button>
+        <router-link to="/game" class="btn btn-primary m-2">Play</router-link>
         <button type="button" class="btn btn-primary m-2">Log in</button>
         <button type="button" class="btn btn-primary m-2">How to play</button>
       </div>
