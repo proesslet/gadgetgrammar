@@ -1,73 +1,28 @@
 <template>
-  <div>
-    <h1 class="centered-text">{{ msg }}</h1>
-    <Grid />
-    <div class="legend">
-      <div class="legend-item">
-        <div class="color-box green"></div>
-        <span>Correct Letter, Correct Spot</span>
-      </div>
-      <div class="legend-item">
-        <div class="color-box yellow"></div>
-        <span>Correct Letter, Incorrect Spot</span>
-      </div>
-      <div class="legend-item">
-        <div class="color-box gray"></div>
-        <span>Incorrect Letter, Incorrect Spot</span>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-center">Welcome to Gadget Grammar!</h1>
       </div>
     </div>
+    <div class="row">
+      <div
+        class="col-3 d-flex flex-column m-auto h-100 justify-content-space-between"
+      >
+        <router-link to="/game" class="btn btn-primary m-2">Play</router-link>
+        <button type="button" class="btn btn-primary m-2">Log in</button>
+        <button type="button" class="btn btn-primary m-2">How to play</button>
   </div>
 </template>
 
 <script>
-import Grid from "../components/grid.vue";
-
 export default {
   name: "Home",
-  components: {
-    Grid,
-  },
+
   data() {
-    return {
-      msg: "Welcome to Gadget Grammar!",
-    };
+    return {};
   },
   methods: {},
 };
 </script>
-
-<style>
-.centered-text {
-  text-align: center;
-}
-
-.legend {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-}
-
-.color-box {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-}
-
-.green {
-  background-color: green;
-}
-
-.yellow {
-  background-color: yellow;
-}
-
-.gray {
-  background-color: gray;
-}
 </style>
