@@ -12,6 +12,8 @@
         <router-link to="/game" class="btn btn-primary m-2">Play</router-link>
         <button type="button" class="btn btn-primary m-2">Log in</button>
         <button type="button" class="btn btn-primary m-2">How to play</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -25,4 +27,3 @@ export default {
   methods: {},
 };
 </script>
-</style>
