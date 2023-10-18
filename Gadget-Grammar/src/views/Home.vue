@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import Modal from "./gameinstructions.vue";
+import Modal from "../components/gameinstructions.vue";
 export default {
-  name: "Modal",
+  name: "Home",
   components: {
     Modal
   },
