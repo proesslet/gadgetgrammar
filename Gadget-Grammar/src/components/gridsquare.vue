@@ -1,5 +1,5 @@
 <template>
-  <div class="tile" ref="gridSquare" @keydown="handleKeyDown" tabindex="0">
+  <div class="tile" ref="gridSquare" @keydown="handleKeyDown" @mousedown.prevent tabindex="0">
     {{ letter }}
   </div>
 </template>
