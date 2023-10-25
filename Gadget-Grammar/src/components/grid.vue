@@ -15,7 +15,10 @@
     <div class="row">
       <GridSquare v-for="n in 5" :correct="right" />
     </div>
-  </div>
+    <div class="row">
+      <GridSquare v-for="n in 5" :correct="right" />
+    </div>
+    </div>
 </template>
 
 <script>
