@@ -26,11 +26,13 @@
 </template>
 
 <script>
-import Modal from "../components/gameinstructions.vue";
+import LoginModal from "../components/login.vue";
+import InstructionsModal from "../components/gameinstructions.vue";
 export default {
   name: "Home",
   components: {
-    Modal,
+    LoginModal,
+    InstructionsModal,
   },
   data() {
     return {
