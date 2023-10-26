@@ -49,6 +49,7 @@
       </div>
     </div>
     <LoginModal />
+    <InstructionsModal />
     <Modal />
   </div>
 </template>

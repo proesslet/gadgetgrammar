@@ -47,7 +47,7 @@
 </template>
 <script>
 export default {
-  name: "Modal",
+  name: "InstructionsModal",
   methods: {
     close() {
       this.$emit("close");
