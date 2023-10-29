@@ -17,11 +17,11 @@
               <input type="password" class="form-control" id="password" placeholder="Enter Password">
             </div>
             <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="rememberMe">
-              <label class="form-check-label" for="rememberMe">Remember me</label>
+              <input type="checkbox" class="form-check-input" id="rememberme" name="rememberme" checked>
+              <label for="rememberme" class="form-check-label">Remember Me</label>
             </div>
             <div class="mb-3">
-              <p>Don't have an account? <a href="#">Create one</a></p>
+              <p>Don't have an account?<a href="#">Create one</a></p>
             </div>
           </form>
         </div>
