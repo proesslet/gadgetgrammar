@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="text-dark modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -18,10 +18,10 @@
             </div>
             <div class="mb-3 form-check">
               <input type="checkbox" class="form-check-input" id="rememberme" name="rememberme" checked>
-              <label for="rememberme" class="form-check-label">Remember Me</label>
+              <label for="rememberme" class="form-check-label">Remember Me </label>
             </div>
             <div class="mb-3">
-              <p>Don't have an account?<a href="#">Create one</a></p>
+              <p>Don't have an account? <a href="#">Create one</a></p>
             </div>
           </form>
         </div>
