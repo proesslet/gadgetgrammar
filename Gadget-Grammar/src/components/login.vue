@@ -21,7 +21,7 @@
               <label for="rememberme" class="form-check-label">Remember Me </label>
             </div>
             <div class="mb-3">
-              <p>Don't have an account? <a href="#">Create one</a></p>
+              <p>Don't have an account? <router-link to="/create-account">Create one</router-link></p>
             </div>
           </form>
         </div>
