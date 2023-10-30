@@ -11,6 +11,8 @@ app.get("/words", async (req, res) => {
   res.json(words);
 });
 
+// move to building services rather than putting everything in here
+
 // @desc   Check if word exists in database
 // @route  GET /words/:word
 // @access Public
