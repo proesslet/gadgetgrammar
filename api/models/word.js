@@ -1,6 +1,7 @@
 const { Sequelize, Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
 
+// Define model for word table
 const Word = sequelize.define(
   "words",
   {
