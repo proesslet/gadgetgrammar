@@ -26,20 +26,20 @@ module.exports = function (passport, user) {
         passwordField: "password",
         passReqToCallback: true, // allows us to pass back the entire request to the callback
       },
-      function (req, email, password, done) {
+      function (req, username, password, done) {
         var User = user;
         var isValidPassword = async function (enteredPass, hash) {
           const valid = await bcrypt.compare(enteredPass, hash);
         };
         User.findOne({
           where: {
-            email: email,
+            username: username,
           },
         })
           .then(function (user) {
             if (!user) {
               return done(null, false, {
-                message: "Email does not exist",
+                message: "User does not exist",
               });
             }
             if (!isValidPassword(password, user.password)) {
@@ -52,7 +52,7 @@ module.exports = function (passport, user) {
           .catch(function (err) {
             console.log("Error:", err);
             return done(null, false, {
-              message: "Something went wrong with your Signin man",
+              message: "Something went wrong",
             });
           });
       }
