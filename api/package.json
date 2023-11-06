@@ -4,7 +4,8 @@
   "description": "## Tech Stack",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,24 @@
   "bugs": {
     "url": "https://github.com/proesslet/gadgetgrammar/issues"
   },
-  "homepage": "https://github.com/proesslet/gadgetgrammar#readme"
+  "homepage": "https://github.com/proesslet/gadgetgrammar#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.3",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-session": "^2.0.0",
+    "dotenv": "^16.3.1",
+    "drizzle-orm": "^0.28.6",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1",
+    "passport": "^0.5.3",
+    "passport-local": "^1.0.0",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "postgres": "^3.4.1",
+    "sequelize": "^6.33.0"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.19.13"
+  }
 }
