@@ -20,10 +20,9 @@
     </div>
     </div>
 </template>
-
+<!-- // fortnite -->
 <script>
 import GridSquare from "./gridsquare.vue";
-
 export default {
   name: "Grid",
   components: {
