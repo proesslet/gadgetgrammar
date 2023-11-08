@@ -1,29 +1,19 @@
 <template>
   <div id="board">
-    <div class="row">
-      <GridSquare v-for="n in 5" :correct="right" />
+    <div class="row" v-for="(row, rowIndex) in board" :key="rowIndex">
+      <GridSquare
+        v-for="(square, squareIndex) in row"
+        :key="squareIndex"
+        :correct="square.letter"
+        :state="square.state"
+        @inputComplete="handleInputComplete"
+      ></GridSquare>
     </div>
-    <div class="row">
-      <GridSquare v-for="n in 5" :correct="right" />
-    </div>
-    <div class="row">
-      <GridSquare v-for="n in 5" :correct="right" />
-    </div>
-    <div class="row">
-      <GridSquare v-for="n in 5" :correct="right" />
-    </div>
-    <div class="row">
-      <GridSquare v-for="n in 5" :correct="right" />
-    </div>
-    <div class="row">
-      <GridSquare v-for="n in 5" :correct="right" />
-    </div>
-    </div>
+  </div>
 </template>
 
 <script>
 import GridSquare from "./gridsquare.vue";
-
 export default {
   name: "Grid",
   components: {
@@ -31,8 +21,54 @@ export default {
   },
   data() {
     return {
-      right: "right",
+      word: "MOUSE",
+      currentRow: 0,
+      board: Array.from({ length: 6 }, () =>
+        Array.from({ length: 5 }, () => ({
+          letter: "",
+          state: "initial",
+        }))
+      ),
     };
+  },
+  methods: {
+    rightLetterWrongPlace(l) {
+      this.word.forEach((l, word) => {
+        if(this.word.includes(l) && this.word.charAt(l) != l) {
+          square.state = "almost";
+        } 
+      })
+    },
+    handleInputComplete(letters) {
+      // Check if last row with letters is correct
+      const row = this.board[this.currentRow];
+      row.forEach((square, index) => {
+        square.letter = letters[index];
+      });
+
+      this.board[this.currentRow].forEach((square, index) => {
+        
+        if (this.word.includes(square.letter)) {
+          console.log(square.letter)
+          if (square.letter == this.word.charAt(index)) {
+          square.state = "correct";
+        }
+        else {
+          square.state = "almost";
+        }
+        }
+        else {
+          square.state = "wrong";
+        }
+      });
+
+      // Make the board print in a readable format
+      console.log(
+        this.board.map((row) => row.map((square) => square.letter).join(" "))
+      );
+
+      this.currentRow++;
+    },
   },
 };
 </script>
