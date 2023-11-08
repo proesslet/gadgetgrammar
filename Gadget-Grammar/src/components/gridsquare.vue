@@ -1,5 +1,12 @@
 <template>
-  <div class="tile" ref="gridSquare" @keydown="handleKeyDown" @mousedown.prevent tabindex="0">
+  <div
+    ref="gridSquare"
+    class="tile"
+    tabindex="0"
+    @keydown="handleKeyDown"
+    @mousedown.prevent
+  >
+    <!-- content of the grid square -->
     {{ letter }}
   </div>
 </template>
@@ -21,15 +28,18 @@ export default {
   methods: {
     handleKeyDown(event) {
       const keyCode = event.keyCode || event.which;
-      if ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122)) {
+      if (
+        (keyCode >= 65 && keyCode <= 90) ||
+        (keyCode >= 97 && keyCode <= 122)
+      ) {
         this.letter = String.fromCharCode(keyCode).toUpperCase();
-        this.$emit("inputComplete"); // Emit custom event to signal input completion
         this.focusNextSquare();
       } else if (keyCode === 8) {
         this.letter = "";
         event.preventDefault();
         this.focusPreviousSquare();
-      } else if (keyCode === 13) { // Check for Enter key
+      } else if (keyCode === 13) {
+        // Check for Enter key
         event.preventDefault();
         this.focusNextRow();
       }
@@ -37,8 +47,8 @@ export default {
     focusNextSquare() {
       // Focus on the next GridSquare to the right
       const gridSquare = this.$refs.gridSquare;
-      if (gridSquare.nextElementSibling) {
-        gridSquare.nextElementSibling.focus();
+      if (gridSquare.nextSibling.classList != undefined) {
+        gridSquare.nextSibling.focus();
       }
     },
     focusPreviousSquare() {
@@ -50,14 +60,19 @@ export default {
     },
     focusNextRow() {
       // Focus on the first GridSquare in the next row
+      // Get letters in the previous row
       const gridSquare = this.$refs.gridSquare;
       const row = gridSquare.closest(".row");
+
+      const squares = row.querySelectorAll(".tile");
+      const letters = Array.from(squares).map((square) => square.innerText);
+      this.$emit("inputComplete", letters);
+
+      // Focus on the first GridSquare in the next row
       const nextRow = row.nextElementSibling;
       if (nextRow) {
-        const firstSquare = nextRow.querySelector(".tile");
-        if (firstSquare) {
-          firstSquare.focus();
-        }
+        const squares = nextRow.querySelectorAll(".tile");
+        squares[0].focus();
       }
     },
   },

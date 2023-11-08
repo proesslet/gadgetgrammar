@@ -1,26 +1,16 @@
 <template>
   <div id="board">
-    <div class="row">
-      <GridSquare v-for="n in 5" :correct="right" />
+    <div class="row" v-for="(row, rowIndex) in board" :key="rowIndex">
+      <GridSquare
+        v-for="(square, squareIndex) in row"
+        :key="squareIndex"
+        :correct="square.letter"
+        @inputComplete="handleInputComplete"
+      ></GridSquare>
     </div>
-    <div class="row">
-      <GridSquare v-for="n in 5" :correct="right" />
-    </div>
-    <div class="row">
-      <GridSquare v-for="n in 5" :correct="right" />
-    </div>
-    <div class="row">
-      <GridSquare v-for="n in 5" :correct="right" />
-    </div>
-    <div class="row">
-      <GridSquare v-for="n in 5" :correct="right" />
-    </div>
-    <div class="row">
-      <GridSquare v-for="n in 5" :correct="right" />
-    </div>
-    </div>
+  </div>
 </template>
-<!-- // fortnite -->
+
 <script>
 import GridSquare from "./gridsquare.vue";
 export default {
@@ -30,8 +20,32 @@ export default {
   },
   data() {
     return {
-      right: "right",
+      word: "MOUSE",
+      currentRow: 0,
+      board: Array.from({ length: 6 }, () =>
+        Array.from({ length: 5 }, () => ({
+          letter: "",
+          state: "",
+        }))
+      ),
     };
+  },
+  methods: {
+    handleInputComplete(letters) {
+      // Check if last row with letters is correct
+      const row = this.board[this.currentRow];
+
+      row.forEach((square, index) => {
+        square.letter = letters[index];
+      });
+
+      // Make the board print in a readable format
+      console.log(
+        this.board.map((row) => row.map((square) => square.letter).join(" "))
+      );
+
+      this.currentRow++;
+    },
   },
 };
 </script>
