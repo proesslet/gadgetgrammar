@@ -32,6 +32,13 @@ export default {
     };
   },
   methods: {
+    rightLetterWrongPlace(l) {
+      this.word.forEach((l, word) => {
+        if(this.word.includes(l) && this.word.charAt(l) != l) {
+          square.state = "almost";
+        } 
+      })
+    },
     handleInputComplete(letters) {
       // Check if last row with letters is correct
       const row = this.board[this.currentRow];
@@ -39,10 +46,18 @@ export default {
         square.letter = letters[index];
       });
 
-      this.board[this.currentRow].forEach((square) => {
-        if (square.letter == "A") {
+      this.board[this.currentRow].forEach((square, index) => {
+        
+        if (this.word.includes(square.letter)) {
+          console.log(square.letter)
+          if (square.letter == this.word.charAt(index)) {
           square.state = "correct";
-        } else {
+        }
+        else {
+          square.state = "almost";
+        }
+        }
+        else {
           square.state = "wrong";
         }
       });
