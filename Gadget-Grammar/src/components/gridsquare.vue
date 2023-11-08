@@ -1,7 +1,7 @@
 <template>
   <div
     ref="gridSquare"
-    class="tile"
+    :class="tileClasses"
     tabindex="0"
     @keydown="handleKeyDown"
     @mousedown.prevent
@@ -15,9 +15,9 @@
 export default {
   name: "GridSquare",
   props: {
-    correct: {
+    state: {
       type: String,
-      required: true,
+      default: "initial",
     },
   },
   data() {
@@ -76,6 +76,14 @@ export default {
       }
     },
   },
+  computed: {
+    tileClasses() {
+      return {
+        tile: true,
+        [this.state]: true,
+      };
+    },
+  },
   mounted() {
     // Focus the first GridSquare in the first row
     const firstSquare = document.querySelector(".row:first-child .tile");
@@ -95,5 +103,21 @@ export default {
   user-select: none;
   position: relative;
   border: 1px solid white;
+}
+
+.correct {
+  background-color: #538d4e;
+}
+
+.almost {
+  background-color: #b49f3a;
+}
+
+.wrong {
+  background-color: #676767;
+}
+
+.initial {
+  background-color: transparent;
 }
 </style>

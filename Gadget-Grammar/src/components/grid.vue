@@ -5,6 +5,7 @@
         v-for="(square, squareIndex) in row"
         :key="squareIndex"
         :correct="square.letter"
+        :state="square.state"
         @inputComplete="handleInputComplete"
       ></GridSquare>
     </div>
@@ -25,7 +26,7 @@ export default {
       board: Array.from({ length: 6 }, () =>
         Array.from({ length: 5 }, () => ({
           letter: "",
-          state: "",
+          state: "initial",
         }))
       ),
     };
