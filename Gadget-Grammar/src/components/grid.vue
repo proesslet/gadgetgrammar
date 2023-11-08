@@ -35,9 +35,16 @@ export default {
     handleInputComplete(letters) {
       // Check if last row with letters is correct
       const row = this.board[this.currentRow];
-
       row.forEach((square, index) => {
         square.letter = letters[index];
+      });
+
+      this.board[this.currentRow].forEach((square) => {
+        if (square.letter == "A") {
+          square.state = "correct";
+        } else {
+          square.state = "wrong";
+        }
       });
 
       // Make the board print in a readable format
