@@ -4,7 +4,7 @@ import Game from "./views/Game.vue";
 import CreateAccount from "./views/CreateAccount.vue";
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory("/gadgetgrammar/"),
   routes: [
     {
       path: "/",
