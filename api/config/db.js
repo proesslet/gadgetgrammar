@@ -1,9 +1,7 @@
 const { Sequelize } = require("sequelize");
 
 // Supabase connection pool
-const sequelize = new Sequelize(
-  "postgres://postgres.nhuvgbvbxncijgajjvce:gadgetsAreFun!@aws-0-us-east-1.pooler.supabase.com:6543/postgres"
-);
+const sequelize = new Sequelize(process.env.SUPABASE_CONNECTION_STRING);
 
 // Test connection
 sequelize
