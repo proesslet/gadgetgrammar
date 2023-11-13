@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 corsOptions = {
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173", "https://proesslet.github.io/"],
   optionsSuccessStatus: 200,
   withCredentials: true,
 };

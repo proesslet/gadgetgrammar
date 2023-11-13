@@ -9,7 +9,7 @@ const app = createApp(App);
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 
-axios.defaults.baseURL = "http://localhost:3000/";
+axios.defaults.baseURL = "https://gadgetgrammarservice.onrender.com/";
 
 // Setup router
 app.use(router);
