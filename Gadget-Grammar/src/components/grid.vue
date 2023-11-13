@@ -14,6 +14,7 @@
 
 <script>
 import GridSquare from "./gridsquare.vue";
+import axios from "axios";
 export default {
   name: "Grid",
   components: {
@@ -21,7 +22,7 @@ export default {
   },
   data() {
     return {
-      word: "MOUSE",
+      word: "",
       currentRow: 0,
       board: Array.from({ length: 6 }, () =>
         Array.from({ length: 5 }, () => ({
@@ -32,6 +33,19 @@ export default {
     };
   },
   methods: {
+    shake() {
+  shakeRowIndex = currentRowIndex
+  setTimeout(() => {
+    shakeRowIndex = -1
+  }, 1000)
+},
+    rightLetterWrongPlace(l) {
+      this.word.forEach((l, word) => {
+        if(this.word.includes(l) && this.word.charAt(l) != l) {
+          square.state = "almost";
+        } 
+      })
+    },
     handleInputComplete(letters) {
       // Check if last row with letters is correct
       const row = this.board[this.currentRow];
@@ -40,17 +54,14 @@ export default {
       });
 
       this.board[this.currentRow].forEach((square, index) => {
-        
         if (this.word.includes(square.letter)) {
-          console.log(square.letter)
+          console.log(square.letter);
           if (square.letter == this.word.charAt(index)) {
-          square.state = "correct";
-        }
-        else {
-          square.state = "almost";
-        }
-        }
-        else {
+            square.state = "correct";
+          } else {
+            square.state = "almost";
+          }
+        } else {
           square.state = "wrong";
         }
       });
@@ -62,6 +73,19 @@ export default {
 
       this.currentRow++;
     },
+    getWord() {
+      axios({
+        method: "get",
+        url: "/newWord",
+      }).then((response) => {
+        this.word = response.data.word.toUpperCase();
+        console.log(this.word);
+      });
+    },
+  },
+  mounted() {
+    this.getWord();
+    console.log(this.word);
   },
 };
 </script>

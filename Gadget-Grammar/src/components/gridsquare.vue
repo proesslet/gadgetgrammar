@@ -38,7 +38,7 @@ export default {
         this.letter = "";
         event.preventDefault();
         this.focusPreviousSquare();
-      } else if (keyCode === 13) {
+      } else if (keyCode === 13 && this.focusNextSquare() != undefined) {
         // Check for Enter key
         event.preventDefault();
         this.focusNextRow();
