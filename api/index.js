@@ -5,6 +5,14 @@ const dotenv = require("dotenv").config();
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const cors = require("cors");
+
+corsOptions = {
+  origin: "http://localhost:5173",
+  optionsSuccessStatus: 200,
+  withCredentials: true,
+};
+app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 
@@ -34,6 +42,13 @@ const Word = require("./models/word");
 app.get("/words", async (req, res) => {
   const words = await Word.findAll();
   res.json(words);
+});
+
+// get random word
+app.get("/newWord", async (req, res) => {
+  // get random word
+  const word = await Word.findAll();
+  res.json(word[Math.floor(Math.random() * word.length)]);
 });
 
 // @desc   Check if word exists in database
