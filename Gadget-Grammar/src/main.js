@@ -9,7 +9,7 @@ const app = createApp(App);
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 
-// For development, change default to: "http://localhost:5173"
+// For development, change default to: "http://localhost:3000"
 // For production, change default to: "https://gadgetgrammarservice.onrender.com/"
 // DO NOT PUSH DEVELOPMENT VERSION TO GITHUB - it will break the production build
 axios.defaults.baseURL = "https://gadgetgrammarservice.onrender.com/";
