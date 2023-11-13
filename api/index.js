@@ -7,6 +7,9 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+// For development, change origin to: "http://localhost:5173"
+// For production, change origin to: "https://proesslet.github.io"
+// DO NOT PUSH DEVELOPMENT VERSION TO GITHUB - it will break the production build
 corsOptions = {
   origin: "https://proesslet.github.io",
   optionsSuccessStatus: 200,
