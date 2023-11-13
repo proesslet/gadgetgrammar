@@ -72,7 +72,7 @@ export default {
         method: "get",
         url: "/newWord",
       }).then((response) => {
-        this.word = response.data.word;
+        this.word = response.data.word.toUpperCase();
         console.log(this.word);
       });
     },
