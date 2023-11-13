@@ -2,8 +2,42 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const User = require("../models/user");
+
+router.post("/updatestreak", authMiddleware, (req, res) => {
+  User.update(
+    { currentstreak: req.body.currentstreak },
+    { where: { username: req.body.username } }
+  )
+    .then((user) => {
+      User.findAll({ where: { username: req.body.username } }).then((user) => {
+        if (user.currentstreak > user.higheststreak) {
+          User.update(
+            { higheststreak: user.currentstreak },
+            { where: { username: req.body.username } }
+          );
+        }
+      });
+    })
+    .then(() => {
+      res.json({ message: "Streak updated" });
+    })
+    .catch((err) => {
+      res.send("error: " + err);
+    });
+});
+
+router.get("/getstreak", authMiddleware, (req, res) => {
+  User.findOne({ where: { username: req.body.username } })
+    .then((user) => {
+      res.json({ status: user.currentstreak });
+    })
+    .catch((err) => {
+      res.send("error: " + err);
+    });
+});
 
 // @desc   Register new user
 // @route  POST /user/register
