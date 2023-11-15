@@ -13,7 +13,7 @@ import "bootstrap";
 // For development, change default to: "http://localhost:3000"
 // For production, change default to: "https://gadgetgrammarservice.onrender.com/"
 // DO NOT PUSH DEVELOPMENT VERSION TO GITHUB - it will break the production build
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "https://gadgetgrammarservice.onrender.com/";
 
 // VueX Setup
 const user = createStore({
