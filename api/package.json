@@ -32,7 +32,8 @@
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
     "postgres": "^3.4.1",
-    "sequelize": "^6.33.0"
+    "sequelize": "^6.33.0",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "drizzle-kit": "^0.19.13"
