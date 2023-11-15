@@ -9,12 +9,13 @@
 
 
 <script>
+import router from "../router"
 export default {
     methods: {
     refreshPage() {
       // Use window.location.reload() to refresh the page
-      window.location.reload();
-    },
+      router.push("/game") 
+        },
   },
   name: "GameOver",
   props: {

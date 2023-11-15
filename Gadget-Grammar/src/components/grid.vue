@@ -54,13 +54,6 @@ export default {
     };
   },
   methods: {
-    rightLetterWrongPlace(l) {
-      this.word.forEach((l, word) => {
-        if (this.word.includes(l) && this.word.charAt(l) != l) {
-          square.state = "almost";
-        }
-      });
-    },
     handleInputComplete(letters) {
       // Check if last row with letters is correct
       const row = this.board[this.currentRow];
