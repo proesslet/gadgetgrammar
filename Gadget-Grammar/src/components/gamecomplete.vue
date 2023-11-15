@@ -1,5 +1,5 @@
 <template>
-  <div>
+    <div class="centered-message">
     <h2>Game Over</h2>
     <p v-if="won == true">You Won!</p>
     <p v-else>You Lost</p>
@@ -10,12 +10,12 @@
 </template>
 
 <script>
+import router from "../router"
 export default {
   methods: {
     refreshPage() {
-      // Use window.location.reload() to refresh the page
-      window.location.reload();
-    },
+      this.$router.go();       
+     },
   },
   name: "GameOver",
   props: {
