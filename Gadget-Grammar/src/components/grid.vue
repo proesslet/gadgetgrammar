@@ -1,4 +1,7 @@
 <template>
+  <div class="centered-message-container">
+    <p v-if="message" class="centered-message">{{ message }}</p>
+  </div>
   <div>
     <div id="board">
       <div class="row" v-for="(row, rowIndex) in board" :key="rowIndex">
@@ -42,6 +45,7 @@ export default {
   data() {
     return {
       word: "",
+      message: '',
       gameOver: false,
       gameWon: false,
       currentRow: 0,
@@ -54,6 +58,14 @@ export default {
     };
   },
   methods: {
+  showMessage(msg, time = 1000) {
+  this.message = msg
+  if (time > 0) {
+    setTimeout(() => {
+      this.message = ''
+    }, time)
+  }
+    },
     handleInputComplete(letters) {
       // Check if last row with letters is correct
       const row = this.board[this.currentRow];
@@ -61,18 +73,29 @@ export default {
         square.letter = letters[index];
       });
 
-      this.board[this.currentRow].forEach((square, index) => {
-        if (this.word.includes(square.letter)) {
-          console.log(square.letter);
-          if (square.letter == this.word.charAt(index)) {
-            square.state = "correct";
-          } else {
-            square.state = "almost";
-          }
-        } else {
-          square.state = "wrong";
-        }
-      });
+      const correctPositions = {};
+
+this.board[this.currentRow].forEach((square, index) => {
+  const currentLetter = this.word.charAt(index);
+
+  if (square.letter === currentLetter) {
+    square.state = "correct";
+    
+    correctPositions[currentLetter] = index;
+  } else if (this.word.includes(square.letter)) {
+    if (
+      correctPositions.hasOwnProperty(square.letter) &&
+      correctPositions[square.letter] !== index &&
+      !this.word.includes(square.letter, index + 1)
+    ) {
+      square.state = "wrong";
+    } else {
+      square.state = "almost";
+    }
+  } else {
+    square.state = "wrong";
+  }
+});
       this.gameComplete();
       // Make the board print in a readable format
       console.log(
@@ -81,6 +104,7 @@ export default {
       this.currentRow++;
       if(this.currentRow > 5) {
         this.gameOver = true;
+        this.showMessage(this.word.toUpperCase(), -1)
       }
     },
     gameComplete() {
@@ -129,8 +153,15 @@ export default {
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 5px;
 }
+.centered-message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .centered-text {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .legend {
   display: flex;
