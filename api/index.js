@@ -13,7 +13,7 @@ const cors = require("cors");
 corsOptions = {
   origin: "https://proesslet.github.io",
   optionsSuccessStatus: 200,
-  withCredentials: true,
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
