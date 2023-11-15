@@ -43,7 +43,10 @@ router.post("/login", (req, res, next) => {
       }
 
       req.logIn(user, (err) => {
-        res.send("Successfully authenticated");
+        res.json({
+          status: "Successfully logged in",
+          user: { username: user.username },
+        });
       });
     })(req, res, next);
   }
@@ -52,7 +55,7 @@ router.post("/login", (req, res, next) => {
 // @desc   Logout user
 // @route  GET /user/logout
 // @access Public
-router.get("/logout", (req, res) => {
+router.post("/logout", (req, res) => {
   req.logout();
   res.send("Successfully logged out");
 });
