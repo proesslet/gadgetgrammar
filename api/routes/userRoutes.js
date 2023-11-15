@@ -2,8 +2,42 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const User = require("../models/user");
+
+router.post("/updatestreak", authMiddleware, (req, res) => {
+  User.update(
+    { currentstreak: req.body.currentstreak },
+    { where: { username: req.body.username } }
+  )
+    .then((user) => {
+      User.findAll({ where: { username: req.body.username } }).then((user) => {
+        if (user.currentstreak > user.higheststreak) {
+          User.update(
+            { higheststreak: user.currentstreak },
+            { where: { username: req.body.username } }
+          );
+        }
+      });
+    })
+    .then(() => {
+      res.json({ message: "Streak updated" });
+    })
+    .catch((err) => {
+      res.send("error: " + err);
+    });
+});
+
+router.get("/getstreak", authMiddleware, (req, res) => {
+  User.findOne({ where: { username: req.body.username } })
+    .then((user) => {
+      res.json({ status: user.currentstreak });
+    })
+    .catch((err) => {
+      res.send("error: " + err);
+    });
+});
 
 // @desc   Register new user
 // @route  POST /user/register
@@ -43,7 +77,10 @@ router.post("/login", (req, res, next) => {
       }
 
       req.logIn(user, (err) => {
-        res.send("Successfully authenticated");
+        res.json({
+          status: "Successfully logged in",
+          user: { username: user.username },
+        });
       });
     })(req, res, next);
   }
@@ -52,7 +89,7 @@ router.post("/login", (req, res, next) => {
 // @desc   Logout user
 // @route  GET /user/logout
 // @access Public
-router.get("/logout", (req, res) => {
+router.post("/logout", (req, res) => {
   req.logout();
   res.send("Successfully logged out");
 });

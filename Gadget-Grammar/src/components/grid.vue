@@ -28,7 +28,7 @@
         <span>Incorrect Letter, Incorrect Spot</span>
       </div>
     </div>
-    <GameOver v-if="gameOver" :won="gameWon"/>
+    <GameOver v-if="gameOver" :won="gameWon" />
   </div>
 </template>
 
@@ -102,7 +102,7 @@ this.board[this.currentRow].forEach((square, index) => {
         this.board.map((row) => row.map((square) => square.letter).join(" "))
       );
       this.currentRow++;
-      if(this.currentRow > 5) {
+      if (this.currentRow > 5) {
         this.gameOver = true;
         this.showMessage(this.word.toUpperCase(), -1)
       }
@@ -110,11 +110,11 @@ this.board[this.currentRow].forEach((square, index) => {
     gameComplete() {
       let count = 0;
       this.board[this.currentRow].forEach((square, index) => {
-        if(square.letter == this.word.charAt(index)) {
+        if (square.letter == this.word.charAt(index)) {
           count++;
         }
-      })
-      if(count == 5){
+      });
+      if (count == 5) {
         this.gameWon = true;
         this.gameOver = true;
       }
@@ -187,5 +187,4 @@ this.board[this.currentRow].forEach((square, index) => {
 .gray {
   background-color: gray;
 }
-
 </style>

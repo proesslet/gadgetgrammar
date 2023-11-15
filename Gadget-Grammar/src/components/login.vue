@@ -25,6 +25,7 @@
                 type="text"
                 class="form-control"
                 id="username"
+                v-model="username"
                 placeholder="Enter Username"
               />
             </div>
@@ -34,6 +35,7 @@
                 type="password"
                 class="form-control"
                 id="password"
+                v-model="password"
                 placeholder="Enter Password"
               />
             </div>
@@ -51,7 +53,8 @@
             </div>
             <div class="mb-3">
               <p>
-                Don't have an account? <a href="/create-account">Create one</a>
+                Don't have an account?
+                <a href="#" @click="goToRegister">Create one</a>
               </p>
             </div>
           </form>
@@ -61,10 +64,13 @@
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
+            id="closeLoginModal"
           >
             Close
           </button>
-          <button type="button" class="btn btn-primary">Login</button>
+          <button type="button" class="btn btn-primary" @click="login">
+            Login
+          </button>
         </div>
       </div>
     </div>
@@ -72,7 +78,38 @@
 </template>
 
 <script>
+import axios from "axios";
+import router from "../router";
+
 export default {
   name: "LoginModal",
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
+  methods: {
+    login() {
+      axios({
+        method: "post",
+        url: "/user/login",
+        data: {
+          username: this.username,
+          password: this.password,
+        },
+      }).then((res) => {
+        console.log(res);
+        this.$store.commit("changeLoggedIn", true);
+        this.$store.commit("changeUser", res.data.user);
+        document.getElementById("closeLoginModal").click();
+        router.push("/game");
+      });
+    },
+    goToRegister() {
+      document.getElementById("closeLoginModal").click();
+      router.push("/create-account");
+    },
+  },
 };
 </script>
