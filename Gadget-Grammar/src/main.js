@@ -3,6 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import axios from "axios";
 import { createStore } from "vuex";
+import createPersistedState from "vuex-plugin-persistedstate";
+import VueCookies from "vue-cookies";
 
 const app = createApp(App);
 
@@ -14,9 +16,11 @@ import "bootstrap";
 // For production, change default to: "https://gadgetgrammarservice.onrender.com/"
 // DO NOT PUSH DEVELOPMENT VERSION TO GITHUB - it will break the production build
 axios.defaults.baseURL = "https://gadgetgrammarservice.onrender.com/";
+axios.defaults.withCredentials = true;
 
 // VueX Setup
 const user = createStore({
+  plugins: [createPersistedState()],
   state() {
     return {
       loggedIn: false,
@@ -42,6 +46,8 @@ const user = createStore({
 });
 
 app.use(user);
+
+app.use(VueCookies, { expires: "1d" });
 
 // Setup router
 app.use(router);
