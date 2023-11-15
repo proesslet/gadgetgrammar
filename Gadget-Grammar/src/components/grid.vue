@@ -188,3 +188,4 @@ this.board[this.currentRow].forEach((square, index) => {
   background-color: gray;
 }
 </style>
+ChatGPT
