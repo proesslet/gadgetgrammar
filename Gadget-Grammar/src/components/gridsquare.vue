@@ -41,13 +41,41 @@ export default {
       } else if (keyCode === 13) {
         // Check for Enter key
         event.preventDefault();
-        this.focusNextRow();
+        // Only focus the next row if the current row is full
+        const row = this.$refs.gridSquare.closest(".row");
+        const squares = row.querySelectorAll(".tile");
+        const letters = Array.from(squares).map((square) => square.innerText.trim());
+        if (letters.length === 5 && letters.every(letter => letter.length === 1)) {
+          this.focusNextRow();
+        }
       }
+    },
+    focusNextRow() {
+     // Focus on the first GridSquare in the next row
+      const gridSquare = this.$refs.gridSquare;
+      const row = gridSquare.closest(".row");
+
+      const squares = row.querySelectorAll(".tile");
+      const letters = Array.from(squares).map((square) => square.innerText.trim());
+
+      // Check if all squares in the row are filled
+      if (letters.length === 5 && letters.every(letter => letter.length === 1)) {
+        // All squares are filled, emit the inputComplete event
+        this.$emit("inputComplete", letters);
+
+        // Focus on the first GridSquare in the next row
+        const nextRow = row.nextElementSibling;
+        if (nextRow) {
+          const nextSquares = nextRow.querySelectorAll(".tile");
+          nextSquares[0].focus();
+        }
+      }
+      // If not all squares are filled, do nothing (user cannot proceed)
     },
     focusNextSquare() {
       // Focus on the next GridSquare to the right
       const gridSquare = this.$refs.gridSquare;
-      if (gridSquare.nextSibling.classList != undefined) {
+      if (gridSquare.nextSibling) {
         gridSquare.nextSibling.focus();
       }
     },
