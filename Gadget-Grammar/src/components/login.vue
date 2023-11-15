@@ -53,7 +53,8 @@
             </div>
             <div class="mb-3">
               <p>
-                Don't have an account? <a href="/create-account">Create one</a>
+                Don't have an account?
+                <a href="#" @click="goToRegister">Create one</a>
               </p>
             </div>
           </form>
@@ -104,6 +105,10 @@ export default {
         document.getElementById("closeLoginModal").click();
         router.push("/game");
       });
+    },
+    goToRegister() {
+      document.getElementById("closeLoginModal").click();
+      router.push("/create-account");
     },
   },
 };
