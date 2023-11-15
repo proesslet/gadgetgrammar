@@ -5,7 +5,7 @@
 - Vue 3
 - Boostrap 5 (for styling) - https://getbootstrap.com/docs/5.0/getting-started/introduction/
 - NodeJS
-- MongoDB
+- Supabase
 
 ## Branching Strategy
 Let's go with a fairly standard branching strategy used in most agile based teams.
