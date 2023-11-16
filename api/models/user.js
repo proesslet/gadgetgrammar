@@ -18,7 +18,16 @@ const User = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    currentstreak: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    higheststreak: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
+
   {
     timestamps: false,
     schema: "gadgetgrammar",
