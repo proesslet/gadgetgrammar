@@ -65,15 +65,15 @@ export default {
 }
 
 /* Additional styles for the letter states */
-.correct {
+#keyboard .keyboard-row button.correct {
   background-color: #538d4e; /* This should match the correct color in gridsquare.vue */
 }
 
-.almost {
+#keyboard .keyboard-row button.almost {
   background-color: #b49f3a; /* This should match the almost color in gridsquare.vue */
 }
 
-.wrong {
+#keyboard .keyboard-row button.wrong {
   background-color: #676767; /* This should match the wrong color in gridsquare.vue */
 }
 </style>
