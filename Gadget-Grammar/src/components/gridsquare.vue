@@ -44,22 +44,32 @@ export default {
         // Only focus the next row if the current row is full
         const row = this.$refs.gridSquare.closest(".row");
         const squares = row.querySelectorAll(".tile");
-        const letters = Array.from(squares).map((square) => square.innerText.trim());
-        if (letters.length === 5 && letters.every(letter => letter.length === 1)) {
+        const letters = Array.from(squares).map((square) =>
+          square.innerText.trim()
+        );
+        if (
+          letters.length === 5 &&
+          letters.every((letter) => letter.length === 1)
+        ) {
           this.focusNextRow();
         }
       }
     },
     focusNextRow() {
-     // Focus on the first GridSquare in the next row
+      // Focus on the first GridSquare in the next row
       const gridSquare = this.$refs.gridSquare;
       const row = gridSquare.closest(".row");
 
       const squares = row.querySelectorAll(".tile");
-      const letters = Array.from(squares).map((square) => square.innerText.trim());
+      const letters = Array.from(squares).map((square) =>
+        square.innerText.trim()
+      );
 
       // Check if all squares in the row are filled
-      if (letters.length === 5 && letters.every(letter => letter.length === 1)) {
+      if (
+        letters.length === 5 &&
+        letters.every((letter) => letter.length === 1)
+      ) {
         // All squares are filled, emit the inputComplete event
         this.$emit("inputComplete", letters);
 
@@ -122,6 +132,9 @@ export default {
 
 <style scoped>
 .tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   font-size: 2rem;
   line-height: 2rem;

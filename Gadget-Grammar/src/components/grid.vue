@@ -34,6 +34,9 @@
       @letterChosen="handleInputComplete"
     />
     <GameOver v-if="gameOver" :won="gameWon" />
+    <div class="streak-container">
+      <UserStreak />
+    </div>
   </div>
 </template>
 
@@ -41,6 +44,7 @@
 import Keyboard from "./keyboard.vue";
 import GridSquare from "./gridsquare.vue";
 import GameOver from "./gamecomplete.vue";
+import UserStreak from "./userstreak.vue";
 import axios from "axios";
 export default {
   name: "Grid",
@@ -48,11 +52,12 @@ export default {
     GridSquare,
     GameOver,
     Keyboard,
+    UserStreak,
   },
   data() {
     return {
       word: "",
-      message: '',
+      message: "",
       gameOver: false,
       gameWon: false,
       currentRow: 0,
@@ -76,13 +81,13 @@ export default {
     },
   },
   methods: {
-  showMessage(msg, time = 1000) {
-  this.message = msg
-  if (time > 0) {
-    setTimeout(() => {
-      this.message = ''
-    }, time)
-  }
+    showMessage(msg, time = 1000) {
+      this.message = msg;
+      if (time > 0) {
+        setTimeout(() => {
+          this.message = "";
+        }, time);
+      }
     },
     handleInputComplete(letters) {
       // Check if last row with letters is correct
@@ -109,32 +114,32 @@ export default {
 
       const correctPositions = {};
 
-this.board[this.currentRow].forEach((square, index) => {
-  const currentLetter = this.word.charAt(index);
+      this.board[this.currentRow].forEach((square, index) => {
+        const currentLetter = this.word.charAt(index);
 
-  if (square.letter === currentLetter) {
-    square.state = "correct";
-    
-    correctPositions[currentLetter] = index;
-  } else if (this.word.includes(square.letter)) {
-    if (
-      correctPositions.hasOwnProperty(square.letter) &&
-      correctPositions[square.letter] !== index &&
-      !this.word.includes(square.letter, index + 1)
-    ) {
-      square.state = "wrong";
-    } else {
-      square.state = "almost";
-    }
-  } else {
-    square.state = "wrong";
-  }
-});
+        if (square.letter === currentLetter) {
+          square.state = "correct";
+
+          correctPositions[currentLetter] = index;
+        } else if (this.word.includes(square.letter)) {
+          if (
+            correctPositions.hasOwnProperty(square.letter) &&
+            correctPositions[square.letter] !== index &&
+            !this.word.includes(square.letter, index + 1)
+          ) {
+            square.state = "wrong";
+          } else {
+            square.state = "almost";
+          }
+        } else {
+          square.state = "wrong";
+        }
+      });
       this.gameComplete();
       this.currentRow++;
       if (this.currentRow > 5) {
         this.gameOver = true;
-        this.showMessage(this.word.toUpperCase(), -1)
+        this.showMessage(this.word.toUpperCase(), -1);
       }
     },
     gameComplete() {
@@ -217,5 +222,10 @@ this.board[this.currentRow].forEach((square, index) => {
 .gray {
   background-color: gray;
 }
+.streak-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 3em;
+}
 </style>
-ChatGPT

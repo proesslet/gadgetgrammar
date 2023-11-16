@@ -23,7 +23,7 @@ export default {
   name: "Keyboard",
   props: {
     usedLetters: Set,
-    letterStates: Object, // This is the new prop for letter states
+    letterStates: Object,
   },
   data() {
     return {
@@ -36,7 +36,6 @@ export default {
   },
   methods: {
     keyPress(letter) {
-      // Emit an event when a key is pressed
       this.$emit("letterChosen", letter);
     },
   },
@@ -52,28 +51,36 @@ export default {
   margin-top: 20px;
 }
 
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+}
+
 #keyboard .keyboard-row button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 2rem;
   padding: 10px;
   width: 60px;
   height: 60px;
   text-align: center;
-  background-color: transparent; /* Make the button background transparent */
-  color: white; /* Make the button text white */
-  border: 1px solid white; /* Add a white border around the button */
-  margin: 2px; /* Add some margin around the button */
+  line-height: 60px; /* This assumes your button height is 60px */
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  margin: 2px;
 }
 
-/* Additional styles for the letter states */
 #keyboard .keyboard-row button.correct {
-  background-color: #538d4e; /* This should match the correct color in gridsquare.vue */
+  background-color: #538d4e;
 }
 
 #keyboard .keyboard-row button.almost {
-  background-color: #b49f3a; /* This should match the almost color in gridsquare.vue */
+  background-color: #b49f3a;
 }
 
 #keyboard .keyboard-row button.wrong {
-  background-color: #676767; /* This should match the wrong color in gridsquare.vue */
+  background-color: #676767;
 }
 </style>
