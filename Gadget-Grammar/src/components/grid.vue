@@ -28,11 +28,17 @@
         <span>Incorrect Letter, Incorrect Spot</span>
       </div>
     </div>
+    <Keyboard
+      :usedLetters="new Set(word)"
+      :letterStates="letterStates"
+      @letterChosen="handleInputComplete"
+    />
     <GameOver v-if="gameOver" :won="gameWon" />
   </div>
 </template>
 
 <script>
+import Keyboard from "./keyboard.vue";
 import GridSquare from "./gridsquare.vue";
 import GameOver from "./gamecomplete.vue";
 import axios from "axios";
@@ -41,6 +47,7 @@ export default {
   components: {
     GridSquare,
     GameOver,
+    Keyboard,
   },
   data() {
     return {
@@ -57,6 +64,17 @@ export default {
       ),
     };
   },
+  computed: {
+    letterStates() {
+      const letterStates = {};
+      this.board.forEach((row) => {
+        row.forEach((square) => {
+          letterStates[square.letter] = square.state;
+        });
+      });
+      return letterStates;
+    },
+  },
   methods: {
   showMessage(msg, time = 1000) {
   this.message = msg
@@ -72,6 +90,22 @@ export default {
       row.forEach((square, index) => {
         square.letter = letters[index];
       });
+
+      const updatedBoard = this.board.slice(); // create a copy of the board
+
+      updatedBoard[this.currentRow].forEach((square, index) => {
+        if (this.word.includes(square.letter)) {
+          if (square.letter == this.word.charAt(index)) {
+            square.state = "correct";
+          } else {
+            square.state = "almost";
+          }
+        } else {
+          square.state = "wrong";
+        }
+      });
+
+      this.board = updatedBoard; // update the board with the new state
 
       const correctPositions = {};
 
@@ -97,10 +131,6 @@ this.board[this.currentRow].forEach((square, index) => {
   }
 });
       this.gameComplete();
-      // Make the board print in a readable format
-      console.log(
-        this.board.map((row) => row.map((square) => square.letter).join(" "))
-      );
       this.currentRow++;
       if (this.currentRow > 5) {
         this.gameOver = true;
