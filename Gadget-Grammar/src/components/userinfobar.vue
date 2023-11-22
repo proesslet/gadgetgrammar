@@ -1,15 +1,26 @@
 <template>
-  <div class="d-flex flex-row">
-    <p class="mr-3">Welcome, {{ user.username }}</p>
-    <a href="#" @click="logout">Logout</a>
+  <div class="row">
+    <div class="col-4">
+      <h3>Welcome, {{ user.username }}</h3>
+    </div>
+    <div class="col-4 text-center">
+      <UserStreak />
+    </div>
+    <div class="col-4">
+      <button class="btn btn-danger float-end" @click="logout">Logout</button>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import UserStreak from "./userstreak.vue";
 
 export default {
   name: "UserInfoBar",
+  components: {
+    UserStreak,
+  },
   methods: {
     logout() {
       axios({

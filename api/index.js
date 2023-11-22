@@ -11,7 +11,7 @@ const cors = require("cors");
 // For production, change origin to: "https://proesslet.github.io"
 // DO NOT PUSH DEVELOPMENT VERSION TO GITHUB - it will break the production build
 corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://proesslet.github.io",
   optionsSuccessStatus: 200,
   credentials: true,
 };

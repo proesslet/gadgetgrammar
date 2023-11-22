@@ -15,7 +15,7 @@ import "bootstrap";
 // For development, change default to: "http://localhost:3000"
 // For production, change default to: "https://gadgetgrammarservice.onrender.com/"
 // DO NOT PUSH DEVELOPMENT VERSION TO GITHUB - it will break the production build
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "https://gadgetgrammarservice.onrender.com/";
 axios.defaults.withCredentials = true;
 
 // VueX Setup
@@ -33,6 +33,15 @@ const user = createStore({
     },
     changeUser(state, payload) {
       state.user = payload;
+    },
+    incrementStreak(state) {
+      state.user.currentstreak++;
+      if (state.user.currentstreak > state.user.higheststreak) {
+        state.user.higheststreak = state.user.currentstreak;
+      }
+    },
+    resetStreak(state) {
+      state.user.currentstreak = 0;
     },
   },
   getters: {

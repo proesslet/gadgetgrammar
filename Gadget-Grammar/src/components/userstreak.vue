@@ -4,10 +4,17 @@
 
 <script>
 export default {
-  data() {
-    return {
-      userStreak: 5, // placeholder for now
-    };
+  name: "UserStreak",
+  computed: {
+    userStreak() {
+      return this.$store.state.user.currentstreak;
+    },
   },
 };
 </script>
+
+<style scoped>
+div {
+  font-size: 2rem;
+}
+</style>

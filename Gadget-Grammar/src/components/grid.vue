@@ -34,9 +34,6 @@
       @letterChosen="handleInputComplete"
     />
     <GameOver v-if="gameOver" :won="gameWon" />
-    <div class="streak-container">
-      <UserStreak />
-    </div>
   </div>
 </template>
 
@@ -139,6 +136,7 @@ export default {
       this.currentRow++;
       if (this.currentRow > 5) {
         this.gameOver = true;
+        this.resetStreak();
         this.showMessage(this.word.toUpperCase(), -1);
       }
     },
@@ -150,6 +148,7 @@ export default {
         }
       });
       if (count == 5) {
+        this.incrementStreak();
         this.gameWon = true;
         this.gameOver = true;
       }
@@ -162,6 +161,30 @@ export default {
         this.word = response.data.word.toUpperCase();
         console.log(this.word);
       });
+    },
+    incrementStreak() {
+      if (this.$store.state.loggedIn) {
+        axios({
+          method: "post",
+          url: "/user/incrementstreak",
+          data: {
+            username: this.$store.state.user.username,
+            currentstreak: this.$store.state.user.currentstreak,
+          },
+        }).then((response) => {
+          this.$store.commit("incrementStreak");
+        });
+      }
+    },
+    resetStreak() {
+      if (this.$store.state.loggedIn) {
+        axios({
+          method: "post",
+          url: "/user/resetstreak",
+        }).then((response) => {
+          this.$store.commit("resetStreak");
+        });
+      }
     },
   },
   mounted() {
@@ -221,11 +244,5 @@ export default {
 }
 .gray {
   background-color: gray;
-}
-.streak-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  font-size: 3em;
 }
 </style>

@@ -21,9 +21,7 @@ export default {
   props: {
     won: Boolean,
   },
-  mounted() {
-    console.log(this.won);
-  },
+  methods: {},
 };
 </script>
 <style></style>
