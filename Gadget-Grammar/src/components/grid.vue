@@ -3,6 +3,7 @@
     <p v-if="message" class="centered-message">{{ message }}</p>
   </div>
   <div>
+    <GameOver v-if="gameOver" :won="gameWon" />
     <div id="board">
       <div class="row" v-for="(row, rowIndex) in board" :key="rowIndex">
         <GridSquare
@@ -33,7 +34,6 @@
       :letterStates="letterStates"
       @letterChosen="handleInputComplete"
     />
-    <GameOver v-if="gameOver" :won="gameWon" />
   </div>
 </template>
 

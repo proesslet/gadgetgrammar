@@ -1,9 +1,8 @@
 <template>
-  <div class="centered-message">
-    <h2>Game Over</h2>
+  <div class="m-auto text-center">
     <p v-if="won == true">You Won!</p>
     <p v-else>You Lost</p>
-    <button @click="refreshPage" type="button" class="btn btn-primary">
+    <button @click="refreshPage" type="button" class="btn btn-primary m-auto">
       Play again
     </button>
   </div>
@@ -24,4 +23,3 @@ export default {
   },
 };
 </script>
-<style></style>
