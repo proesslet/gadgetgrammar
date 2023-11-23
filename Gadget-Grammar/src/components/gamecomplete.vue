@@ -12,16 +12,16 @@
 <script>
 import router from "../router";
 export default {
-  methods: {
-    refreshPage() {
-      this.$router.go();
-    },
-  },
   name: "GameOver",
   props: {
     won: Boolean,
   },
-  methods: {},
+  methods: {
+    refreshPage() {
+      console.log("refreshing page");
+      this.$router.go();
+    },
+  },
 };
 </script>
 <style></style>
