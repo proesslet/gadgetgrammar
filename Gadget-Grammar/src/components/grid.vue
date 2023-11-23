@@ -1,39 +1,41 @@
 <template>
-  <div class="centered-message-container">
-    <p v-if="message" class="centered-message">{{ message }}</p>
-  </div>
-  <div>
-    <GameOver v-if="gameOver" :won="gameWon" />
-    <div id="board">
-      <div class="row" v-for="(row, rowIndex) in board" :key="rowIndex">
-        <GridSquare
-          v-for="(square, squareIndex) in row"
-          :key="squareIndex"
-          :correct="square.letter"
-          :state="square.state"
-          @inputComplete="handleInputComplete"
-        ></GridSquare>
-      </div>
+  <div class="container h-100">
+    <div class="centered-message-container">
+      <p v-if="message" class="centered-message">{{ message }}</p>
     </div>
-    <div class="legend">
-      <div class="legend-item">
-        <div class="color-box green"></div>
-        <span>Correct Letter, Correct Spot</span>
+    <div>
+      <GameOver v-if="gameOver" :won="gameWon" />
+      <div id="board">
+        <div class="row" v-for="(row, rowIndex) in board" :key="rowIndex">
+          <GridSquare
+            v-for="(square, squareIndex) in row"
+            :key="squareIndex"
+            :correct="square.letter"
+            :state="square.state"
+            @inputComplete="handleInputComplete"
+          ></GridSquare>
+        </div>
       </div>
-      <div class="legend-item">
-        <div class="color-box yellow"></div>
-        <span>Correct Letter, Incorrect Spot</span>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="color-box green"></div>
+          <span>Correct Letter, Correct Spot</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-box yellow"></div>
+          <span>Correct Letter, Incorrect Spot</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-box gray"></div>
+          <span>Incorrect Letter, Incorrect Spot</span>
+        </div>
       </div>
-      <div class="legend-item">
-        <div class="color-box gray"></div>
-        <span>Incorrect Letter, Incorrect Spot</span>
-      </div>
+      <Keyboard
+        :usedLetters="new Set(word)"
+        :letterStates="letterStates"
+        @letterChosen="handleInputComplete"
+      />
     </div>
-    <Keyboard
-      :usedLetters="new Set(word)"
-      :letterStates="letterStates"
-      @letterChosen="handleInputComplete"
-    />
   </div>
 </template>
 
