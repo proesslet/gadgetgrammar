@@ -85,7 +85,8 @@ export default {
     focusNextSquare() {
       // Focus on the next GridSquare to the right
       const gridSquare = this.$refs.gridSquare;
-      if (gridSquare.nextSibling) {
+      if (gridSquare.nextSibling.classList) {
+        console.log(gridSquare.nextSibling);
         gridSquare.nextSibling.focus();
       }
     },

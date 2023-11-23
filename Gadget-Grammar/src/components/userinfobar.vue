@@ -1,7 +1,8 @@
 <template>
   <div class="row">
     <div class="col-4">
-      <h3>Welcome, {{ user.username }}</h3>
+      <h4>Welcome, {{ user.username }}</h4>
+      <p>Highest Streak: {{ user.higheststreak }}✨</p>
     </div>
     <div class="col-4 text-center">
       <UserStreak />

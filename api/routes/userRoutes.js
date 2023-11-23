@@ -12,7 +12,7 @@ router.post("/incrementstreak", authMiddleware, (req, res) => {
     { where: { username: req.body.username } }
   )
     .then((user) => {
-      User.findAll({ where: { username: req.body.username } }).then((user) => {
+      User.findOne({ where: { username: req.body.username } }).then((user) => {
         if (user.currentstreak > user.higheststreak) {
           User.update(
             { higheststreak: user.currentstreak },
