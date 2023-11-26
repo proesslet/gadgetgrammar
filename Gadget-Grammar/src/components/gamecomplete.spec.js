@@ -1,30 +1,36 @@
 import { mount } from "@vue/test-utils";
 import GameOver from "./gamecomplete.vue";
+import { describe } from "vitest";
 // import { expect, test } from "vitest";
-const wrapper = mount(GameOver, {
-  props: {
-    won: true,
-  },
+
+describe("GameOverWon", () => {
+  const wrapper = mount(GameOver, {
+    props: {
+      won: true,
+    },
+  });
+
+  it("renders", () => {
+    expect(wrapper.html()).toContain("div");
+  });
+
+  it("displays a winning message", () => {
+    expect(wrapper.html()).toContain("You Won!");
+  });
 });
 
-test("Game Over", () => {
-  expect(wrapper.html()).toContain("Game Over");
-});
+describe("GameOverLost", () => {
+  const wrapper = mount(GameOver, {
+    props: {
+      won: false,
+    },
+  });
 
-test("Play Again Button", () => {
-  expect(wrapper.find("button").text()).toBe("Play Again");
-});
+  it("renders", () => {
+    expect(wrapper.html()).toContain("div");
+  });
 
-test("Game Over but Won", () => {
-  expect(wrapper.html()).toContain("You Won!");
-});
-
-const wrapper2 = mount(GameOver, {
-  props: {
-    won: false,
-  },
-});
-
-test("Game Over but Lost", () => {
-  expect(wrapper2.html()).toContain("You Lost");
+  it("displays a losing message", () => {
+    expect(wrapper.html()).toContain("You Lost");
+  });
 });

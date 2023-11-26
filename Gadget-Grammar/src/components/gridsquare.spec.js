@@ -1,13 +1,15 @@
 import { mount } from "@vue/test-utils";
 import GridSquare from "./gridsquare.vue";
-import { test } from "vitest";
+import { it, test } from "vitest";
 
-const wrapper = mount(GridSquare);
+describe("GridSquareInitial", () => {
+  it("renders", () => {
+    const wrapper = mount(GridSquare);
+    expect(wrapper.html()).toContain("div");
+  });
 
-test("GridSquare renders", () => {
-  expect(wrapper.html()).toContain("div");
-});
-
-test("GridSquare has a class of initial by default", () => {
-  expect(wrapper.classes()).toContain("initial");
+  it("initally has a class of 'initial'", () => {
+    const wrapper = mount(GridSquare);
+    expect(wrapper.classes()).toContain("initial");
+  });
 });
