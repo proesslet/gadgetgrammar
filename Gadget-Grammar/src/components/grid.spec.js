@@ -21,4 +21,10 @@ describe("Grid", () => {
     const wrapper = mount(Grid);
     expect(wrapper.html()).toContain("div");
   });
+
+  test("Grid accepts keyboard input", async () => {
+    const wrapper = mount(Grid);
+    wrapper.trigger("keydown", { key: "z" });
+    expect(wrapper.html()).toContain("Z");
+  });
 });
