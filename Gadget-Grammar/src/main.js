@@ -34,6 +34,15 @@ const user = createStore({
     changeUser(state, payload) {
       state.user = payload;
     },
+    incrementStreak(state) {
+      state.user.currentstreak++;
+      if (state.user.currentstreak > state.user.higheststreak) {
+        state.user.higheststreak = state.user.currentstreak;
+      }
+    },
+    resetStreak(state) {
+      state.user.currentstreak = 0;
+    },
   },
   getters: {
     loggedIn(state) {

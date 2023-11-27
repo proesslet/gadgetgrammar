@@ -6,13 +6,13 @@ const authMiddleware = require("../middleware/auth.js");
 
 const User = require("../models/user");
 
-router.post("/updatestreak", authMiddleware, (req, res) => {
+router.post("/incrementstreak", authMiddleware, (req, res) => {
   User.update(
-    { currentstreak: req.body.currentstreak },
+    { currentstreak: req.body.currentstreak + 1 },
     { where: { username: req.body.username } }
   )
     .then((user) => {
-      User.findAll({ where: { username: req.body.username } }).then((user) => {
+      User.findOne({ where: { username: req.body.username } }).then((user) => {
         if (user.currentstreak > user.higheststreak) {
           User.update(
             { higheststreak: user.currentstreak },
@@ -23,6 +23,19 @@ router.post("/updatestreak", authMiddleware, (req, res) => {
     })
     .then(() => {
       res.json({ message: "Streak updated" });
+    })
+    .catch((err) => {
+      res.send("error: " + err);
+    });
+});
+
+router.post("/resetstreak", authMiddleware, (req, res) => {
+  User.update(
+    { currentstreak: 0 },
+    { where: { username: req.user[0].username } }
+  )
+    .then(() => {
+      res.json({ message: "Streak reset" });
     })
     .catch((err) => {
       res.send("error: " + err);
@@ -79,7 +92,11 @@ router.post("/login", (req, res, next) => {
       req.logIn(user, (err) => {
         res.json({
           status: "Successfully logged in",
-          user: { username: user.username },
+          user: {
+            username: user.username,
+            currentstreak: user.currentstreak,
+            higheststreak: user.higheststreak,
+          },
         });
       });
     })(req, res, next);
@@ -92,6 +109,21 @@ router.post("/login", (req, res, next) => {
 router.post("/logout", (req, res) => {
   req.logout();
   res.send("Successfully logged out");
+});
+
+// @desc   Get user data
+// @route  GET /user
+// @access Private
+router.get("/", (req, res) => {
+  if (req.user) {
+    res.json({
+      user: {
+        username: req.user[0].username,
+        currentstreak: req.user[0].currentstreak,
+        higheststreak: req.user[0].higheststreak,
+      },
+    });
+  }
 });
 
 module.exports = router;

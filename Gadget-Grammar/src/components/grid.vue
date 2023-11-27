@@ -1,39 +1,41 @@
 <template>
-  <div class="centered-message-container">
-    <p v-if="message" class="centered-message">{{ message }}</p>
-  </div>
-  <div>
-    <div id="board">
-      <div class="row" v-for="(row, rowIndex) in board" :key="rowIndex">
-        <GridSquare
-          v-for="(square, squareIndex) in row"
-          :key="squareIndex"
-          :correct="square.letter"
-          :state="square.state"
-          @inputComplete="handleInputComplete"
-        ></GridSquare>
-      </div>
+  <div class="container h-100">
+    <div class="centered-message-container">
+      <p v-if="message" class="centered-message">{{ message }}</p>
     </div>
-    <div class="legend">
-      <div class="legend-item">
-        <div class="color-box green"></div>
-        <span>Correct Letter, Correct Spot</span>
+    <div>
+      <GameOver v-if="gameOver" :won="gameWon" />
+      <div id="board">
+        <div class="row" v-for="(row, rowIndex) in board" :key="rowIndex">
+          <GridSquare
+            v-for="(square, squareIndex) in row"
+            :key="squareIndex"
+            :correct="square.letter"
+            :state="square.state"
+            @inputComplete="handleInputComplete"
+          ></GridSquare>
+        </div>
       </div>
-      <div class="legend-item">
-        <div class="color-box yellow"></div>
-        <span>Correct Letter, Incorrect Spot</span>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="color-box green"></div>
+          <span>Correct Letter, Correct Spot</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-box yellow"></div>
+          <span>Correct Letter, Incorrect Spot</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-box gray"></div>
+          <span>Incorrect Letter, Incorrect Spot</span>
+        </div>
       </div>
-      <div class="legend-item">
-        <div class="color-box gray"></div>
-        <span>Incorrect Letter, Incorrect Spot</span>
-      </div>
+      <Keyboard
+        :usedLetters="new Set(word)"
+        :letterStates="letterStates"
+        @letterChosen="handleInputComplete"
+      />
     </div>
-    <Keyboard
-      :usedLetters="new Set(word)"
-      :letterStates="letterStates"
-      @letterChosen="handleInputComplete"
-    />
-    <GameOver v-if="gameOver" :won="gameWon" />
   </div>
 </template>
 
@@ -41,6 +43,7 @@
 import Keyboard from "./keyboard.vue";
 import GridSquare from "./gridsquare.vue";
 import GameOver from "./gamecomplete.vue";
+import UserStreak from "./userstreak.vue";
 import axios from "axios";
 export default {
   name: "Grid",
@@ -48,6 +51,7 @@ export default {
     GridSquare,
     GameOver,
     Keyboard,
+    UserStreak,
   },
   data() {
     return {
@@ -134,6 +138,7 @@ export default {
       this.currentRow++;
       if (this.currentRow > 5) {
         this.gameOver = true;
+        this.resetStreak();
         this.showMessage(this.word.toUpperCase(), -1);
       }
     },
@@ -145,6 +150,7 @@ export default {
         }
       });
       if (count == 5) {
+        this.incrementStreak();
         this.gameWon = true;
         this.gameOver = true;
       }
@@ -157,6 +163,30 @@ export default {
         this.word = response.data.word.toUpperCase();
         console.log(this.word);
       });
+    },
+    incrementStreak() {
+      if (this.$store.state.loggedIn) {
+        axios({
+          method: "post",
+          url: "/user/incrementstreak",
+          data: {
+            username: this.$store.state.user.username,
+            currentstreak: this.$store.state.user.currentstreak,
+          },
+        }).then((response) => {
+          this.$store.commit("incrementStreak");
+        });
+      }
+    },
+    resetStreak() {
+      if (this.$store.state.loggedIn) {
+        axios({
+          method: "post",
+          url: "/user/resetstreak",
+        }).then((response) => {
+          this.$store.commit("resetStreak");
+        });
+      }
     },
   },
   mounted() {
@@ -217,4 +247,3 @@ export default {
   background-color: gray;
 }
 </style>
-ChatGPT

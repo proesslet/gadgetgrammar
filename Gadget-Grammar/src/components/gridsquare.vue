@@ -85,7 +85,8 @@ export default {
     focusNextSquare() {
       // Focus on the next GridSquare to the right
       const gridSquare = this.$refs.gridSquare;
-      if (gridSquare.nextSibling) {
+      if (gridSquare.nextSibling.classList) {
+        console.log(gridSquare.nextSibling);
         gridSquare.nextSibling.focus();
       }
     },
@@ -134,6 +135,9 @@ export default {
 
 <style scoped>
 .tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   font-size: 2rem;
   line-height: 2rem;
