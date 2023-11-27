@@ -1,7 +1,7 @@
 import { mount } from "@vue/test-utils";
 import Grid from "./grid.vue";
 import { test, describe } from "vitest";
-
+import { createStore } from "vuex";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 
