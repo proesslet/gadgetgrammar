@@ -36,6 +36,10 @@ describe("Test Gameplay", () => {
       word: "array",
     });
 
+    mock.onPost("/user/incrementstreak").reply(200, {
+      message: "Streak updated",
+    });
+
     // Mock store
     const actions = {
       getUser: vi.fn(),
