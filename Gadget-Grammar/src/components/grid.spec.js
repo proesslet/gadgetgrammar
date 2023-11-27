@@ -28,3 +28,20 @@ describe("Grid", () => {
     expect(wrapper.html()).toContain("Z");
   });
 });
+
+describe("Test Gameplay", () => {
+  it("Plays a winning game", async () => {
+    const mock = new MockAdapter(axios);
+    mock.onGet("/newWord").reply(200, {
+      word: "array",
+    });
+
+    // Simulate a whole game
+    const wrapper = mount(Grid);
+    await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick();
+    expect(wrapper.vm.word).toBe("ARRAY");
+    wrapper.vm.handleInputComplete(["A", "R", "R", "A", "Y"]);
+    expect(wrapper.vm.gameWon).toBe(true);
+  });
+});

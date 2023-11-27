@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import GridSquare from "./gridsquare.vue";
-import { it, test } from "vitest";
+import { expect, it, test } from "vitest";
 
 describe("GridSquareInitial", () => {
   it("renders", () => {
