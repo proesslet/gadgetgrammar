@@ -126,7 +126,9 @@ export default {
   mounted() {
     // Focus the first GridSquare in the first row
     const firstSquare = document.querySelector(".row:first-child .tile");
-    firstSquare.focus();
+    if (firstSquare) {
+      firstSquare.focus();
+    }
   },
 };
 </script>

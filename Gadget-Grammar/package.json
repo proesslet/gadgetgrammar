@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest --dom",
+    "coverage": "vitest run --coverage",
+    "test-ui": "vitest --ui --coverage.enabled=true"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
@@ -19,6 +22,12 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.4",
-    "vite": "^4.4.9"
+    "@vitest/coverage-v8": "^0.34.6",
+    "@vitest/ui": "^0.34.6",
+    "@vue/test-utils": "^2.4.2",
+    "axios-mock-adapter": "^1.22.0",
+    "happy-dom": "^12.10.3",
+    "vite": "^4.4.9",
+    "vitest": "^0.34.6"
   }
 }

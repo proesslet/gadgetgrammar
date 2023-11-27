@@ -191,7 +191,6 @@ export default {
   },
   mounted() {
     this.getWord();
-    console.log(this.word);
   },
 };
 </script>
