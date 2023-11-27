@@ -30,10 +30,7 @@ router.post("/incrementstreak", (req, res) => {
 });
 
 router.post("/resetstreak", (req, res) => {
-  User.update(
-    { currentstreak: 0 },
-    { where: { username: req.user[0].username } }
-  )
+  User.update({ currentstreak: 0 }, { where: { username: req.username } })
     .then(() => {
       res.json({ message: "Streak reset" });
     })
