@@ -24,6 +24,6 @@ describe("UserInfoBar", () => {
         plugins: [store],
       },
     });
-    expect(wrapper.find("p").text()).toBe("Welcome, test");
+    expect(wrapper.find("h4").text()).toBe("Welcome, test");
   });
 });
