@@ -13,16 +13,6 @@
         />
       </div>
       <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          v-model="email"
-          placeholder="Enter Email"
-        />
-      </div>
-      <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input
           type="password"
@@ -47,7 +37,6 @@ export default {
   data() {
     return {
       username: "",
-      email: "",
       password: "",
     };
   },
@@ -58,7 +47,6 @@ export default {
         url: "/user/register",
         data: {
           username: this.username,
-          email: this.email,
           password: this.password,
         },
       }).then(() => {

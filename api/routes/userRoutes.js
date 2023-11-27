@@ -61,9 +61,11 @@ router.post("/register", (req, res) => {
   User.create({
     username: req.body.username,
     password: hashedPassword,
+    currentstreak: 0,
+    higheststreak: 0,
   })
     .then((user) => {
-      res.json({ status: user.email + " registered" });
+      res.json({ status: user.username + " registered" });
     })
     .catch((err) => {
       res.send("error: " + err);
