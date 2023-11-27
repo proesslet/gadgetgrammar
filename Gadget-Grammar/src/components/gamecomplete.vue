@@ -25,8 +25,7 @@ export default {
   },
   methods: {
     refreshPage() {
-      console.log("refreshing page");
-      this.$router.go();
+      emit("newGame");
     },
   },
 };
