@@ -19,11 +19,27 @@ export default {
       type: String,
       default: "initial",
     },
+    initialLetter: {
+      type: String,
+      default: "",
+    },
+    reset: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
-      letter: "",
+      letter: this.initialLetter,
     };
+  },
+  watch: {
+    initialLetter(newLetter) {
+      this.letter = newLetter;
+    },
+    reset() {
+      this.letter = this.initialLetter;
+    },
   },
   methods: {
     handleKeyDown(event) {

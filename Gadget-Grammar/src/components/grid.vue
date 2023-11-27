@@ -13,6 +13,7 @@
             :correct="square.letter"
             :state="square.state"
             @inputComplete="handleInputComplete"
+            :reset="resetGrid"
           ></GridSquare>
         </div>
       </div>
@@ -60,6 +61,7 @@ export default {
       gameOver: false,
       gameWon: false,
       currentRow: 0,
+      resetGrid: false,
       board: Array.from({ length: 6 }, () =>
         Array.from({ length: 5 }, () => ({
           letter: "",
@@ -82,6 +84,7 @@ export default {
   methods: {
     resetGame() {
       // Reset data and rerender the board
+      this.resetGrid = !this.resetGrid;
       this.word = "";
       this.message = "";
       this.gameOver = false;
@@ -95,15 +98,11 @@ export default {
       );
       this.getWord();
 
-      // Rerender grid squares
-      // for each GridSquare in the board, set the letter to "" and the state to "initial"
-      const gridSquares = document.querySelectorAll(".tile");
-      gridSquares.forEach((square) => {
-        square.innerText = "";
-        square.classList.remove("correct");
-        square.classList.remove("almost");
-        square.classList.remove("wrong");
-      });
+      // Reset to focus on the first GridSquare
+      const firstSquare = document.querySelector(".row:first-child .tile");
+      if (firstSquare) {
+        firstSquare.focus();
+      }
     },
     showMessage(msg, time = 1000) {
       this.message = msg;
