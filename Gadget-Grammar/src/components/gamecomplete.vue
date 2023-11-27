@@ -25,7 +25,8 @@ export default {
   },
   methods: {
     refreshPage() {
-      emit("newGame");
+      console.log("refreshing");
+      this.$emit("newGame");
     },
   },
 };
