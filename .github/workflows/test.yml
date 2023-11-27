@@ -26,7 +26,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - working-directory: ./Gadget-Grammar
     - run: npm ci
+      working-directory: ./Gadget-Grammar
     - run: npm run build --if-present
+      working-directory: ./Gadget-Grammar
     - run: npm test
+      working-directory: ./Gadget-Grammar
