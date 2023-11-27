@@ -207,6 +207,9 @@ export default {
         axios({
           method: "post",
           url: "/user/resetstreak",
+          data: {
+            username: this.$store.state.user.username,
+          },
         }).then((response) => {
           this.$store.commit("resetStreak");
         });
