@@ -4,7 +4,7 @@
       <p v-if="message" class="centered-message">{{ message }}</p>
     </div>
     <div>
-      <GameOver v-if="gameOver" :won="gameWon" />
+      <GameOver v-if="gameOver" :won="gameWon" @newGame="resetGame" />
       <div id="board">
         <div class="row" v-for="(row, rowIndex) in board" :key="rowIndex">
           <GridSquare
@@ -80,6 +80,31 @@ export default {
     },
   },
   methods: {
+    resetGame() {
+      // Reset data and rerender the board
+      this.word = "";
+      this.message = "";
+      this.gameOver = false;
+      this.gameWon = false;
+      this.currentRow = 0;
+      this.board = Array.from({ length: 6 }, () =>
+        Array.from({ length: 5 }, () => ({
+          letter: "",
+          state: "initial",
+        }))
+      );
+      this.getWord();
+
+      // Rerender grid squares
+      // for each GridSquare in the board, set the letter to "" and the state to "initial"
+      const gridSquares = document.querySelectorAll(".tile");
+      gridSquares.forEach((square) => {
+        square.innerText = "";
+        square.classList.remove("correct");
+        square.classList.remove("almost");
+        square.classList.remove("wrong");
+      });
+    },
     showMessage(msg, time = 1000) {
       this.message = msg;
       if (time > 0) {
