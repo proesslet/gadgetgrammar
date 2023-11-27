@@ -6,7 +6,7 @@ const authMiddleware = require("../middleware/auth.js");
 
 const User = require("../models/user");
 
-router.post("/incrementstreak", authMiddleware, (req, res) => {
+router.post("/incrementstreak", (req, res) => {
   User.update(
     { currentstreak: req.body.currentstreak + 1 },
     { where: { username: req.body.username } }
@@ -29,7 +29,7 @@ router.post("/incrementstreak", authMiddleware, (req, res) => {
     });
 });
 
-router.post("/resetstreak", authMiddleware, (req, res) => {
+router.post("/resetstreak", (req, res) => {
   User.update(
     { currentstreak: 0 },
     { where: { username: req.user[0].username } }
@@ -42,7 +42,7 @@ router.post("/resetstreak", authMiddleware, (req, res) => {
     });
 });
 
-router.get("/getstreak", authMiddleware, (req, res) => {
+router.get("/getstreak", (req, res) => {
   User.findOne({ where: { username: req.body.username } })
     .then((user) => {
       res.json({ status: user.currentstreak });
